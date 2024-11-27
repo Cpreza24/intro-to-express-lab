@@ -5,7 +5,7 @@ const app = express();
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
-    res.send('Root Route');
+    res.send('Home');
 });
 
 
@@ -53,9 +53,35 @@ const shoes = [
 ];
 
 app.get('/shoes', (req, res) => {
-    const queryParam = req.query.shoes;
-    res.send(`${queryParam[shoes].name}`)
-})
+    const type = req.query.type;
+    const shoe = shoes.filter((shoe) => {
+        console.log(shoe);
+        return shoe.type === type;
+    })
+    
+    res.json(shoe);
+    console.log(shoe)
+});
+
+app.get('/shoes', (req, res) => {
+    const price = parseInt(req.query.minprice);
+    const minPrice = shoes.filter((min) => {
+        console.log(min.length)
+    })
+    
+    res.send(minPrice);
+    console.log(price)
+});
+
+// app.get('/shoes', (req, res) => {
+//     const type = req.query.type;
+//     const shoe = shoes.filter((shoe) => {
+//         return shoe.type === type;
+//     })
+    
+//     res.json(shoe);
+//     console.log(shoe)
+// });
 
 
 

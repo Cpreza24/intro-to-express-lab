@@ -52,36 +52,29 @@ const shoes = [
     { name: "Fifty-Inch Heels", price: 175, type: "heel" }
 ];
 
+
+
 app.get('/shoes', (req, res) => {
-    const type = req.query.type;
+    const typeParam = req.query.type;
+    const minPrice = parseInt(req.query.minprice);
+    const maxPrice = parseInt(req.query.maxprice)
     const shoe = shoes.filter((shoe) => {
-        console.log(shoe);
-        return shoe.type === type;
-    })
-    
-    res.json(shoe);
-    console.log(shoe)
-});
+        if (typeParam === shoe.type) {
+            console.log(`the type is ${typeParam}`)
+            return shoe.type === typeParam;
+        };
 
-app.get('/shoes', (req, res) => {
-    const price = parseInt(req.query.minprice);
-    const minPrice = shoes.filter((min) => {
-        console.log(min.length)
-    })
-    
-    res.send(minPrice);
-    console.log(price)
-});
+        if (shoe.price >= minPrice) {
+            return shoe;
+        }
 
-// app.get('/shoes', (req, res) => {
-//     const type = req.query.type;
-//     const shoe = shoes.filter((shoe) => {
-//         return shoe.type === type;
-//     })
-    
-//     res.json(shoe);
-//     console.log(shoe)
-// });
+        if (shoe.price <= maxPrice) {
+            console.log(maxPrice);
+            return shoe;
+        }
+    })
+    res.send(shoe);
+});
 
 
 
